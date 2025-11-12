@@ -1,6 +1,4 @@
 
-
-
 <h1 align="center"> 🛒 Evocart – Smart & Simple E-Commerce Website ⚡ </h1>
 
 <p align="center">
@@ -8,6 +6,7 @@
   <img src="https://img.shields.io/badge/Backend-PHP-orange?style=for-the-badge&logo=php" alt="PHP">
   <img src="https://img.shields.io/badge/Database-MySQL-blue?style=for-the-badge&logo=mysql" alt="MySQL">
   <img src="https://img.shields.io/badge/Hosting-InfinityFree-black?style=for-the-badge&logo=apache" alt="InfinityFree">
+  <img src="https://img.shields.io/badge/VersionControl-GitHub-lightgrey?style=for-the-badge&logo=github" alt="GitHub">
   <img src="https://img.shields.io/badge/IDE-VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode" alt="VSCode">
 </p>
 
@@ -15,183 +14,111 @@
 
 ## 🧠 Abstract
 
-**Evocart** is a full-featured yet lightweight **e-commerce web application** built using **PHP** and **MySQL**.  
-It demonstrates how an online shopping system works from **product listing** to **order management**, integrating both **user** and **admin interfaces**.  
+**Evocart** is a complete **e-commerce web application** that demonstrates the core functionalities of an online shopping platform — from product browsing and cart management to order processing and administrative control.  
 
-The project showcases real-world concepts such as:
-- Secure authentication using bcrypt 🔒  
-- Session handling & form validation ⚙️  
-- Dynamic CRUD operations 🧩  
-- Live hosting deployment 🌍  
+Developed with **PHP**, **MySQL**, and **Bootstrap**, it aims to provide a lightweight yet production-style example for students and freelance developers learning full-stack web development using procedural PHP.  
 
-> ✅ **Tagline:** “Shop Smart, Manage Fast!”
+The project includes:
+- 🔐 Secure login/signup using **password hashing**
+- 🧩 CRUD modules for products & orders
+- 💬 Admin dashboard for business operations
+- 🌐 Full **deployment on InfinityFree**
+- 💾 Persistent data storage with MySQL  
+
+> 💬 **Tagline:** “Shop Smart, Manage Fast!”
+
+---
+
+## 📘 Table of Contents
+
+1. [🎯 Objectives](#-objectives)  
+2. [🏗️ System Overview](#️-system-overview)  
+3. [🧩 Modules](#-modules)  
+4. [🗄️ Database Schema & Relationships](#️-database-schema--relationships)  
+5. [⚙️ Tech Stack](#️-tech-stack)  
+6. [🧠 Backend Logic Flow](#-backend-logic-flow)  
+7. [💻 File Structure](#-file-structure)  
+8. [🔐 Authentication & Security](#-authentication--security)  
+9. [⚡ Deployment Guide (InfinityFree)](#-deployment-guide-infinityfree-)  
+10. [🧪 Testing Plan](#-testing-plan)  
+11. [🚀 Performance Optimization](#-performance-optimization)  
+12. [🧩 Scalability & Maintenance Plan](#-scalability--maintenance-plan)  
+13. [🎨 UI & UX Enhancements](#-ui--ux-enhancements)  
+14. [📈 Learning Outcomes](#-learning-outcomes)  
+15. [🧩 Future Enhancements](#-future-enhancements)  
+16. [📜 Acknowledgments](#-acknowledgments)  
+17. [👨‍💻 Developer](#-developer)  
+18. [🏁 Conclusion](#-conclusion)  
 
 ---
 
 ## 🎯 Objectives
 
-- 💡 Design a complete **shopping cart flow** with authentication  
-- 🔐 Implement **secure data storage** with hashed passwords  
-- 🧑‍💼 Allow **admin to create, update & manage products/orders**  
-- ☁️ Deploy the project live on **InfinityFree**  
-- 🧠 Understand **sessions, forms & DB transactions**  
-- ✍️ Maintain **clean, well-commented, and reusable code**
+| Goal | Description |
+|------|--------------|
+| ✅ End-to-End Flow | Build complete shopping workflow with authentication, cart, and order system. |
+| 🔒 Security | Implement password hashing & prepared statements for safe authentication. |
+| 🧠 Learning | Understand backend logic, database relations, and deployment process. |
+| 💻 Admin Features | Include full CRUD for products and order management dashboard. |
+| 🌍 Deployment | Deploy live using InfinityFree with remote MySQL DB connection. |
+| 🧰 Documentation | Provide detailed documentation for educational or portfolio purposes. |
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ System Overview
 
-```
+**Evocart** is divided into two major environments:
 
-+---------------------------+
-|        Frontend UI        |
-| (HTML / CSS / PHP Pages)  |
-+------------+--------------+
-|
-v
-+---------------------------+
-|     PHP Backend Logic     |
-|  - API Scripts            |
-|  - Admin Dashboard        |
-+------------+--------------+
-|
-v
-+---------------------------+
-|        MySQL Database     |
-|  Tables: users, products, |
-|  cart, orders, order_items|
-+---------------------------+
+1. **🛍️ User Side** — customers register, browse, add to cart, checkout, and track orders.  
+2. **🧑‍💼 Admin Side** — admin manages products, orders, and users via dashboard.
 
-```
+### 📊 System Type
+> Web-based e-commerce platform for product sales and order management.
 
-**🔄 Flow Explanation:**
-1. Browser renders PHP pages (frontend).
-2. User actions call backend PHP scripts.
-3. Backend connects to MySQL (via `config.php`).
-4. Data is processed, stored, and returned as HTML output.
+### 👥 Users
+| User Role | Features |
+|------------|-----------|
+| Customer | Register, login, browse, add to cart, checkout, track orders |
+| Admin | Manage products, orders, users, and monitor system analytics |
 
 ---
 
-## 🧩 Core Modules
+## 🧩 Modules
 
-### 👥 User-Side Modules
+### 👨‍💻 User Side Modules
 
-| Module | Description | Key Files | Tables |
-|--------|--------------|------------|---------|
-| **Signup/Login** | Handles user registration & authentication (bcrypt encryption). | `signup.php`, `login.php`, `api/process_signup.php`, `api/process_login.php` | `users` |
-| **Product Listing** | Fetches & displays products dynamically with category filters. | `index.php`, `all.php` | `products` |
-| **Cart Management** | Adds/removes/updates items; stores cart per session. | `carts.php` | `cart` |
-| **Checkout** | Calculates totals, tax, and shipping; creates orders. | `checkout.php`, `success.php` | `orders`, `order_items` |
-| **Order Status** | Displays order status (Pending, Delivered, etc.) | `order_status.php` | `orders` |
-
----
-
-### 🧑‍💼 Admin-Side Modules
-
-| Module | Description | Key Files | Tables |
-|--------|--------------|-----------|---------|
-| **Admin Login** | Hardcoded credentials for backend access. | `admin_login.php` | — |
-| **Dashboard Home** | Displays stats: products, orders, users. | `dashboard.php` | all |
-| **Product CRUD** | Add/Edit/Delete products & upload images. | `product_crud_api.php` | `products` |
-| **Order Management** | Change order status, view user orders. | `order_status_api.php` | `orders` |
-| **User Management** | View registered users. | `dashboard_users.php` | `users` |
+| Module | Description | Key Files | DB Tables |
+|---------|--------------|------------|------------|
+| Signup / Login | Handles secure authentication using bcrypt. | `signup.php`, `login.php`, `api/process_signup.php` | `users` |
+| Product Listing | Displays dynamic products fetched from MySQL. | `index.php`, `all.php` | `products` |
+| Cart | Add, update, or remove cart items linked to session. | `carts.php` | `cart` |
+| Checkout | Creates orders and calculates totals (subtotal, tax, etc.). | `checkout.php`, `success.php` | `orders`, `order_items` |
+| Order Tracking | Shows live order status (Pending → Delivered). | `order_status.php` | `orders`, `order_items` |
 
 ---
 
-## 🗂️ File Structure
+### 🧑‍💼 Admin Side Modules
 
-```
-
-htdocs/
-│
-├── admin/
-│   ├── admin_login.php
-│   ├── dashboard.php
-│   ├── dashboard_users.php
-│   └── api/
-│       ├── product_crud_api.php
-│       ├── order_status_api.php
-│
-├── api/
-│   ├── process_signup.php
-│   ├── process_login.php
-│
-├── includes/
-│   └── config.php
-│
-├── assets/           → CSS, JS, images
-├── uploads/          → Product images
-│
-├── index.php         → Homepage
-├── all.php           → All products
-├── carts.php         → Cart page
-├── checkout.php      → Checkout process
-├── success.php       → Order confirmation
-├── order_status.php  → Order tracking
-├── login.php / signup.php
-└── logout.php
-
-````
+| Module | Description | Key Files | DB Tables |
+|---------|--------------|-----------|------------|
+| Admin Login | Authenticates hard-coded admin credentials. | `admin_login.php` | — |
+| Dashboard | Shows quick metrics (products, orders, users). | `dashboard.php` | all |
+| Product CRUD | Add/Edit/Delete products and upload images. | `product_crud_api.php` | `products` |
+| Order Management | View and update order status. | `order_status_api.php` | `orders` |
+| User Management | Display all registered users. | `dashboard_users.php` | `users` |
 
 ---
 
-## 🗄️ Database Schema
+## 🗄️ Database Schema & Relationships
 
-### 🧍 Table: `users`
-| Field | Type | Description |
-|-------|------|-------------|
-| id | int (AI) | Primary key |
-| name | varchar(100) | Full name |
-| email | varchar(100) | Unique login email |
-| password_hash | varchar(255) | Encrypted password |
-| created_at | timestamp | Registration date |
+### 🔹 Tables Overview
+- `users` — customer data  
+- `products` — catalog data  
+- `cart` — temporary cart items per session  
+- `orders` — order records  
+- `order_items` — order details (linked to products)
 
-### 📦 Table: `products`
-| Field | Type | Description |
-|-------|------|-------------|
-| id | int | Primary key |
-| name | varchar(255) | Product name |
-| category | varchar(100) | Category |
-| price | decimal(10,2) | Product price |
-| image_url | varchar(255) | Product image |
-| is_best_seller | tinyint(1) | Boolean flag |
-| created_at | datetime | Timestamp |
-
-### 🛒 Table: `cart`
-| Field | Type | Description |
-|-------|------|-------------|
-| id | int | Primary key |
-| user_id | int | Linked to users |
-| product_id | int | Linked to products |
-| quantity | int | Quantity added |
-| added_at | datetime | Timestamp |
-
-### 🧾 Table: `orders`
-| Field | Type | Description |
-|-------|------|-------------|
-| id | int | Primary key |
-| user_id | int | Linked to users |
-| order_date | datetime | Created date |
-| status | enum | Pending / Paid / Delivered |
-| subtotal | decimal(10,2) | Item total |
-| shipping | decimal(10,2) | Shipping cost |
-| tax | decimal(10,2) | Tax amount |
-| grand_total | decimal(10,2) | Final total |
-
-### 📦 Table: `order_items`
-| Field | Type | Description |
-|-------|------|-------------|
-| id | int | Primary key |
-| order_id | int | Linked to orders |
-| product_id | int | Linked to products |
-| product_name | varchar(255) | Product snapshot |
-| unit_price | decimal(10,2) | Item price |
-| quantity | int | Quantity ordered |
-| line_total | decimal(10,2) | unit_price × quantity |
-
----
-
-## 🔗 Database Relationships (ER Diagram)
+### 🧬 Entity Relationship Diagram
 
 ```mermaid
 erDiagram
@@ -202,68 +129,153 @@ erDiagram
   PRODUCTS ||--o{ ORDER_ITEMS : "included in"
 ````
 
+### 🗃️ Example: `users` Table
+
+| Field         | Type         | Description           |
+| ------------- | ------------ | --------------------- |
+| id            | int (AI)     | Primary key           |
+| name          | varchar(100) | Full name             |
+| email         | varchar(100) | Unique email          |
+| password_hash | varchar(255) | Hashed password       |
+| created_at    | timestamp    | Account creation time |
+
 ---
 
-## 🔄 Application Workflow
+## ⚙️ Tech Stack
 
-```mermaid
-flowchart TD
-A[Visitor] --> B[Signup/Login]
-B --> C[Browse Products]
-C --> D[Add to Cart]
-D --> E[Checkout]
-E --> F[Database: Create Orders + Items]
-F --> G[Admin Dashboard]
-G --> H[Update Order Status]
-H --> I[User Sees Updated Status]
+| Layer      | Technology       | Purpose                         | Version |
+| ---------- | ---------------- | ------------------------------- | ------- |
+| Frontend   | HTML5            | Page structure                  | —       |
+| Styling    | CSS3 + Bootstrap | Layout & responsiveness         | 4 / 5   |
+| Scripting  | JavaScript       | Form validation & interactivity | —       |
+| Backend    | PHP              | Server-side logic               | 7.2+    |
+| Database   | MySQL / MariaDB  | Persistent data storage         | 10.6+   |
+| Web Server | Apache 2         | Hosts PHP                       | —       |
+| IDE        | VS Code          | Development                     | —       |
+| Hosting    | InfinityFree     | Live deployment                 | —       |
+
+---
+
+## 🧠 Backend Logic Flow
+
+**PHP scripts** handle CRUD operations, user authentication, and order processing using **prepared statements** for security.
+
+### Example: Signup Flow
+
+```php
+include("../includes/config.php");
+$name = $_POST['name'];
+$email = $_POST['email'];
+$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+$stmt = $conn->prepare("INSERT INTO users (name,email,password_hash) VALUES (?,?,?)");
+$stmt->bind_param("sss", $name, $email, $password);
+$stmt->execute();
+```
+
+### Example: Order Creation Flow
+
+```php
+// checkout.php
+$conn->begin_transaction();
+$conn->query("INSERT INTO orders (user_id, subtotal, grand_total, status) VALUES (...)");
+$order_id = $conn->insert_id;
+foreach($cart_items as $item){
+   $conn->query("INSERT INTO order_items (order_id, product_id, quantity) VALUES (...)");
+}
+$conn->commit();
 ```
 
 ---
 
-## 🔐 Authentication Logic
+## 💻 File Structure
 
-1. User submits credentials → `process_login.php`
-2. System validates via `password_verify()`
-3. On success → session created:
-   `$_SESSION['user_id']`, `$_SESSION['email']`
-4. On logout → session destroyed
-5. Admin login uses constants:
-
-   ```php
-   const ADMIN_USERNAME = "admin";
-   const ADMIN_PASSWORD = "admin123";
-   ```
+```
+htdocs/
+│
+├── admin/
+│   ├── admin_login.php
+│   ├── dashboard.php
+│   ├── dashboard_users.php
+│   └── api/
+│        ├── product_crud_api.php
+│        ├── order_status_api.php
+│
+├── api/
+│   ├── process_signup.php
+│   ├── process_login.php
+│
+├── includes/
+│   └── config.php
+│
+├── assets/           → Styles, JS, images
+├── uploads/          → Product images
+│
+├── index.php         → Homepage
+├── all.php           → Category listings
+├── carts.php         → Cart page
+├── checkout.php      → Checkout flow
+├── success.php       → Order success page
+├── order_status.php  → Track orders
+├── login.php / signup.php / logout.php
+└── README.md
+```
 
 ---
 
-## ⚙️ Deployment Steps (InfinityFree 🌍)
+## 🔐 Authentication & Security
 
-### Step 1: Create Hosting Account
+### 🛡️ Implemented Security Measures
 
-* Go to [https://infinityfree.net](https://infinityfree.net)
-* Create account → verify email → open Control Panel
+* Password hashing with `password_hash()`
+* SQL injection prevention via prepared statements
+* Session-based authentication
+* Unique email constraint
+* File upload validation
+* `logout.php` destroys sessions securely
 
-### Step 2: Create Database
+### 🚧 Known Weaknesses
 
-* Navigate to **MySQL Databases**
-* Create new DB (e.g., `if0_40348717_evocart`)
-* Copy credentials:
+| Issue                        | Risk   | Solution                           |
+| ---------------------------- | ------ | ---------------------------------- |
+| Hard-coded admin credentials | High   | Store in DB with role-based access |
+| Missing CSRF protection      | Medium | Add random token validation        |
+| No HTTPS enforcement         | Medium | Redirect via `.htaccess`           |
+| MyISAM engine in `cart`      | Medium | Convert to InnoDB                  |
+| Display errors               | Low    | Disable in production              |
 
-  ```
-  Host: sql100.byetcluster.com
-  User: if0_40348717
-  Pass: <yourpassword>
-  DB: if0_40348717_evocart
-  ```
+---
 
-### Step 3: Import Database
+## ⚡ Deployment Guide (InfinityFree)
 
-* Open phpMyAdmin → Import → Choose `evocart.sql` → Click Go ✅
+### ☁️ Step-by-Step Instructions
 
-### Step 4: Configure Connection
+#### **1️⃣ Create Account**
+
+Visit [InfinityFree.net](https://infinityfree.net) → Sign up → Access Control Panel.
+
+#### **2️⃣ Create Database**
+
+* In cPanel → click **MySQL Databases**
+* Create new DB and note details:
+
+```
+DB Host: sql100.byetcluster.com
+DB Name: if0_40348717_evocart
+DB User: if0_40348717
+Password: <yourpassword>
+```
+
+#### **3️⃣ Import Database**
+
+* Open phpMyAdmin
+* Click Import → Upload `evocart.sql` → Execute ✅
+
+#### **4️⃣ Configure DB Connection**
+
+Edit `/includes/config.php`:
 
 ```php
-// includes/config.php
 $servername = "sql100.byetcluster.com";
 $username = "if0_40348717";
 $password = "<yourpassword>";
@@ -271,160 +283,151 @@ $database = "if0_40348717_evocart";
 $conn = new mysqli($servername, $username, $password, $database);
 ```
 
-### Step 5: Upload Files
+#### **5️⃣ Upload Files**
 
 * Open File Manager → `/htdocs/`
-* Upload Evocart project folder
-* Ensure `/uploads/` has **write permission**
+* Upload all Evocart files
+* Ensure `/uploads/` has write permission
 
-### Step 6: Test URLs
+#### **6️⃣ Test URLs**
 
-* 🌐 User Site → [https://evocart.free.nf/](https://evocart.free.nf/)
-* 🔑 Admin Panel → [https://evocart.free.nf/admin/admin_login.php](https://evocart.free.nf/admin/admin_login.php)
-
----
-
-## 🧾 Default Credentials
-
-| Type            | Username        | Password          |
-| --------------- | --------------- | ----------------- |
-| 👨‍💼 Admin     | `admin`         | `admin123`        |
-| 🧑‍💻 Demo User | `abc@gmail.com` | bcrypt hash in DB |
+| Page        | URL                                                                                            |
+| ----------- | ---------------------------------------------------------------------------------------------- |
+| 🌍 Homepage | [https://evocart.free.nf/](https://evocart.free.nf/)                                           |
+| 🔑 Login    | [https://evocart.free.nf/login.php](https://evocart.free.nf/login.php)                         |
+| 🛍️ Cart    | [https://evocart.free.nf/carts.php](https://evocart.free.nf/carts.php)                         |
+| 🧑‍💼 Admin | [https://evocart.free.nf/admin/admin_login.php](https://evocart.free.nf/admin/admin_login.php) |
 
 ---
 
-## 🔒 Security Overview
+## 🧪 Testing Plan
 
-### ✅ Implemented:
+| Test Case    | Action                 | Expected Result           |
+| ------------ | ---------------------- | ------------------------- |
+| User Signup  | Register new account   | Redirect to login         |
+| Login        | Enter credentials      | Redirect to homepage      |
+| Add to Cart  | Click add button       | Cart item count increases |
+| Checkout     | Confirm order          | New record in `orders`    |
+| Admin Login  | Enter `admin/admin123` | Redirect to dashboard     |
+| Update Order | Change status          | Status updated in DB      |
 
-* Password hashing (`password_hash()`)
-* Prepared statements for SQL safety
-* Session-based authentication
-* File upload validation (type/size)
-* Unique email constraint
+### 🧰 Performance Checks
 
-### ⚠️ To Improve:
-
-| Issue                 | Risk   | Fix                         |
-| --------------------- | ------ | --------------------------- |
-| Hardcoded admin login | High   | Move to DB & use roles      |
-| No CSRF protection    | Medium | Add CSRF tokens             |
-| MyISAM engine in cart | Medium | Switch to InnoDB            |
-| No HTTPS enforcement  | Medium | Force HTTPS via `.htaccess` |
+* Page load under 3 seconds
+* MySQL query optimization via indexes
+* Images compressed before upload
 
 ---
 
-## ⚡ Performance Optimization
+## 🚀 Performance Optimization
 
-* ✅ `require_once()` for reusable files
-* ✅ Minify CSS/JS files
-* ✅ Add indexes on foreign keys
-* ✅ Cache static files via `.htaccess`
-* ✅ Compress & convert images to WebP
-
----
-
-## 🧠 Testing Plan
-
-| Test         | Action                  | Expected Output      |
-| ------------ | ----------------------- | -------------------- |
-| User Signup  | Register new user       | Success message      |
-| Login        | Enter valid credentials | Redirect to homepage |
-| Add to Cart  | Click “Add”             | Cart count increases |
-| Checkout     | Confirm order           | Entry in DB          |
-| Admin Login  | Enter admin credentials | Dashboard opens      |
-| Update Order | Change to “Delivered”   | Status updated in DB |
+| Area                      | Technique                                     |
+| ------------------------- | --------------------------------------------- |
+| **Code Optimization**     | Combine & minify CSS/JS, use `require_once()` |
+| **Database Optimization** | Index foreign keys, use LIMIT for pagination  |
+| **Image Optimization**    | Use WebP, compress before upload              |
+| **Caching**               | Add browser caching via `.htaccess`           |
+| **File Compression**      | Gzip text files, optimize assets              |
 
 ---
 
-## 🚀 Future Enhancements
+## 🧩 Scalability & Maintenance Plan
 
-* 💳 Payment Integration (Razorpay / Stripe)
-* 📩 Email Notifications
-* 🧑‍🏫 Role-based Access (Admin/Staff)
-* ⚛️ React / Next.js Frontend
-* ☁️ Cloud Database (PlanetScale / AWS)
-* 🐳 Dockerized Deployment
-* 🧭 Advanced Filters & Search
-
----
-
-## 🎨 UI & UX Recommendations
-
-* 🧭 Add navbar with dropdown categories
-* 🛎️ Add toast notifications for actions
-* 🏷️ Use “Poppins” font for readability
-* ✨ Apply AOS or GSAP animations
-* 📱 Ensure full responsiveness
+| Aspect       | Strategy                         |
+| ------------ | -------------------------------- |
+| Architecture | Convert to MVC structure         |
+| Frontend     | Separate with REST APIs          |
+| Hosting      | Migrate to VPS or Cloud          |
+| CDN          | Use Cloudflare for static assets |
+| Monitoring   | Enable PHP logs & alerts         |
+| Backup       | Weekly DB export                 |
+| PHP Upgrades | Maintain 7.4 → 8.x versions      |
 
 ---
 
-## 🧰 Debugging Tips
+## 🎨 UI & UX Enhancements
 
-| Issue             | Cause                | Fix                     |
-| ----------------- | -------------------- | ----------------------- |
-| Connection Failed | Wrong DB credentials | Check `config.php`      |
-| Blank Page        | Hidden PHP error     | Enable `display_errors` |
-| Image Missing     | Wrong path           | Verify `/uploads/`      |
-| Cart Not Updating | Missing session      | Add `session_start()`   |
-| Login Fails       | Wrong hash           | Rehash passwords        |
+Current UI is minimal — future UI should include:
 
----
-
-## 📈 Learning Outcomes
-
-By building **Evocart**, you will:
-
-* 🔗 Connect PHP with MySQL securely
-* 🧱 Design normalized databases
-* 🔒 Implement password hashing
-* ⚙️ Handle sessions and cookies
-* 🚀 Deploy live PHP websites
-* 🧩 Debug backend errors effectively
+* 🧭 Navbar with category filters
+* ✨ Animated cards using AOS / GSAP
+* 💬 Toast notifications for cart actions
+* 📱 Fully responsive layout
+* 🪞 Modern typography (Poppins / Inter)
 
 ---
 
-## 💬 Acknowledgment
+## 🧠 Learning Outcomes
+
+By developing **Evocart**, learners understand:
+
+* 🔗 PHP-MySQL integration (PDO / MySQLi)
+* 🔒 Secure authentication with hashing
+* 🧱 Relational database normalization
+* 🧮 Session & cookie handling
+* 🧰 Admin dashboard creation
+* 🌍 Live deployment using free hosting
+
+---
+
+## 🧩 Future Enhancements
+
+| Feature                | Description                            |
+| ---------------------- | -------------------------------------- |
+| 💳 Payment Gateway     | Integrate Razorpay / Stripe            |
+| 📩 Email Notifications | Order confirmation & delivery updates  |
+| 👥 Multi-Role Access   | Separate dashboards for admins & staff |
+| ⚛️ React Frontend      | Modern SPA interface                   |
+| ☁️ Cloud Database      | PlanetScale / AWS RDS                  |
+| 🐳 Dockerization       | Containerized environment              |
+| 🔔 Push Notifications  | Real-time status alerts                |
+
+---
+
+## 📈 Learning & Documentation Sources
+
+* [PHP Documentation](https://www.php.net/docs.php)
+* [MySQL Docs](https://dev.mysql.com/doc/)
+* [Bootstrap Framework](https://getbootstrap.com/)
+* [InfinityFree Knowledge Base](https://support.infinityfree.net/)
+
+---
+
+## 📜 Acknowledgments
 
 Special thanks to:
 
-* 🧑‍💻 PHP & MySQL Community
-* 🌐 InfinityFree Hosting
-* 🎨 Bootstrap & FontAwesome
-* 👥 Friends & Mentors for testing
+* 💻 Open-source PHP community
+* ☁️ InfinityFree Hosting for free deployment
+* 🎨 Bootstrap for styling framework
+* 🧑‍🏫 Mentors and testers for feedback
 
 ---
 
 ## 👨‍💻 Developer
 
-**👋 Developed by:** *Jeymurugan Nadar*
-📍 *Mumbai, India*
-🗓️ *Year: 2025*
-💻 *Freelance PHP Developer*
-🔗 *Live Demo:* [https://evocart.free.nf/](https://evocart.free.nf/)
+**Name:** Jeymurugan Nadar
+**Location:** Mumbai, India 🇮🇳
+**Role:** Full-stack Developer (PHP, MySQL, JS)
+**Year:** 2025
+**Website:** [https://evocart.free.nf/](https://evocart.free.nf/)
+**GitHub:** [JeymuruganNadar](https://github.com/JeymuruganNadar)
 
 ---
 
 ## 🏁 Conclusion
 
-**Evocart** successfully demonstrates the complete lifecycle of an e-commerce system:
+**Evocart** demonstrates the **end-to-end workflow** of a real-world e-commerce system:
 
-* 🛍️ Dynamic Product Management
-* 🧾 Cart & Checkout System
+* 🛍️ Product Management
+* 🧾 Cart & Checkout
 * 📦 Order Processing
 * 🧑‍💼 Admin Dashboard
 * ☁️ Live Deployment
 
-It is ideal for **college projects**, **mini-store demos**, and **beginner-to-intermediate PHP developers**.
+With added enhancements like payments, CSRF security, and modern UI, it can evolve into a **production-ready, scalable e-commerce platform**.
 
 > 💡 *Evocart — Shop Smart, Manage Fast!*
 
----
-
 ```
 
----
-
-Would you like me to add **real diagrams (PNG architecture + DB ER image)** generated automatically from this markdown for your GitHub repo visuals?  
-That would make the README visually stunning — perfect for showcasing in your portfolio.
-```
